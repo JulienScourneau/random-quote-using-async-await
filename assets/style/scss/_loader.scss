@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
+$bg: black;
+$col7: hsl(0deg, 100%, 70%);
+$col6: hsl(30deg, 100%, 70%);
+$col5: hsl(60deg, 100%, 70%);
+$col4: hsl(120deg, 100%, 70%);
+$col3: hsl(210deg, 100%, 70%);
+$col2: hsl(240deg, 100%, 70%);
+$col1: hsl(270deg, 100%, 70%);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: $bg;
+    display: grid;
+    place-content: center;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    width: 100vmin;
+    aspect-ratio: 3/2;
+}
+
+.cloud-container {
+    position: absolute;
+    bottom: 17.5vmin;
+    aspect-ratio: 2;
+    width: 30vmin;
+
+    &:nth-child(4) {
+        left: 5vmin;
+    }
+
+    &:nth-child(5) {
+        right: 5vmin;
+        transform: rotateY(180deg);
+    }
+
+    .cloud {
+        position: absolute;
+        width: 30vmin;
+        aspect-ratio: 2;
+        background: whitesmoke;
+        border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+        filter: blur(0.5vmin);
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            background: inherit;
+            border-radius: inherit;
+            bottom: 0;
+        }
+
+        &::before {
+            height: 65%;
+            width: 50%;
+            left: -17.5%;
+        }
+
+        &::after {
+            height: 45%;
+            width: 40%;
+            right: -17.5%;
+        }
+    }
+
+    .mouth {
+        position: absolute;
+        top: 60%;
+        left: 51.5%;
+        height: 2vmin;
+        width: 4vmin;
+        border: .5vmin solid #667;
+        border-radius: 0 0 10vmin 10vmin;
+        border-top: 0;
+    }
+
+    .eyes{
+        position: absolute;
+        width: 10vmin;
+        height: 4vmin;
+        top: 35%;
+        left: 40%;
+        display: flex;
+        justify-content: space-between;
+
+        &::after, &::before{
+            content: '';
+            height: 3vmin;
+            width: 2.5vmin;
+            background: radial-gradient(circle at 60% 40%, #667 20%, #222 80%);
+            border-radius: 100%;
+        }
+    }
+}
+
+.rainbow-container {
+    position: absolute;
+    width: 85vmin;
+    aspect-ratio: 2;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+
+    .rainbow {
+        position: absolute;
+        border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+        width: 85vmin;
+        aspect-ratio: 2;
+        transform: rotate(0deg);
+        transform-origin: bottom;
+        filter: blur(0.05vmin);
+        opacity: 1;
+        background: radial-gradient(
+            circle at 50% 100%,
+            transparent 25%,
+            $col1 30%,
+            $col2 35%,
+            $col3 40%,
+            $col4 45%,
+            $col5 50%,
+            $col6 55%,
+            $col7 60%,
+            transparent 65%
+        );
+
+        animation: rainbow 10s ease-in-out infinite;
+
+        &::after,
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: -4.75vmin;
+            height: 20vmin;
+            width: 35vmin;
+            background: radial-gradient(circle at 50% 0%, transparent 45%, $bg 55%);
+        }
+
+        &::before {
+            left: -2.5vmin;
+            transform: rotate(25deg);
+        }
+
+        &::after {
+            content: "";
+            right: -2.5vmin;
+            transform: rotate(-25deg);
+        }
+    }
+}
+
+.text-container {
+    position: absolute;
+    width: 85vmin;
+    aspect-ratio: 2;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+
+    .letter {
+        position: absolute;
+        width: 5vmin;
+        height: 5vmin;
+        opacity: 0;
+        top: 10vmin;
+        left: 40vmin;
+        font-family: "Permanent Marker", cursive;
+        font-size: 7.5vmin;
+        Text-shadow: 1px 1px 0 white, 
+        1px -1px 0 white, 
+        -1px 1px 0 white, 
+        -1px -1px 0 white, 
+        1px 0px 0 white, 
+        0px 1px 0 white, 
+        -1px 0px 0 white, 
+        0px -1px 0 white;
+        transform-origin: 2.5vmin 35vmin;
+        animation: 10s letters 1s ease-in-out infinite;
+
+        @for $i from 1 through 7 {
+            &:nth-child(#{$i}) {
+                transform: rotate(-65deg + (16deg * $i));
+            }
+        }
+
+        &:nth-child(1) {
+            color: $col1;
+        }
+        &:nth-child(2) {
+            color: $col2;
+        }
+        &:nth-child(3) {
+            color: $col3;
+        }
+        &:nth-child(4) {
+            color: $col4;
+        }
+        &:nth-child(5) {
+            color: $col5;
+        }
+        &:nth-child(6) {
+            color: $col6;
+        }
+        &:nth-child(7) {
+            color: $col7;
+        }
+    }
+  
+    &:nth-child(2){ 
+      .letter{
+        animation-delay: -4.25s;
+      }
+  }
+}
+
+@keyframes rainbow {
+    0%,
+    13%,
+    87%,
+    100% {
+        transform: rotate(-180deg);
+    }
+    25%,
+    35%,
+    65%,
+    75% {
+        transform: rotate(0deg);
+    }
+    45%,
+    55% {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes letters {
+    0%,
+    22%,
+    64%,
+    100% {
+        opacity: 0;
+    }
+    23%,
+    63% {
+        opacity: 1;
+    }
+}
+
+
+/* signature */
+
+.signature {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.link {
+	position: absolute;
+	z-index: 10;
+	left: calc(5vmin - 1rem);
+	bottom: calc(5vmin - 1rem);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+
+	span {
+		font-size: 2rem;
+		font-family: arial, sans-serif;
+		color: whitesmoke;
+	}
+
+	.my-name {
+		position: relative;
+	}
+
+	.before,
+	.after {
+		overflow: hidden;
+		width: 0px;
+		transition: width 0.5s;
+		transform-origin: right;
+	}
+
+	.before-text {
+		display: inline-block;
+		width: auto;
+		text-align: right;
+	}
+
+	.after-text {
+		display: flex;
+		align-items: center;
+		width: auto;
+		height: 3rem;
+		transform-origin: top center;
+	}
+
+	&:hover .before {
+		width: 3.5rem;
+	}
+
+	&:hover .after {
+		width: 5rem;
+	}
+
+	&:hover .spin {
+		display: inline-block;
+		transition: 0.5s transform 0.5s ease-in-out;
+		transform: rotate(360deg);
+	}
+}
